@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-management
+  template:
+    metadata:
+      labels:
+        app: employee-management
+    spec:
+      containers:
+      - name: employee-management
+        image: 488668088427.dkr.ecr.ap-south-1.amazonaws.com/empl-mgmt-demo:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres-db-service:5432/employeemanagement
+        - name: SPRING_DATASOURCE_USERNAME
+          value: postgres
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: docker
